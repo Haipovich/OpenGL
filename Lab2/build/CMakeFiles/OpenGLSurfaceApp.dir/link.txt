@@ -1,0 +1,1 @@
+/usr/sbin/c++ -Wl,--dependency-file=CMakeFiles/OpenGLSurfaceApp.dir/link.d CMakeFiles/OpenGLSurfaceApp.dir/src/main.cpp.o -o OpenGLSurfaceApp  libMyMath.a /usr/lib/libGL.so /usr/lib/libGLEW.so /usr/lib/libglfw.so.3.4
