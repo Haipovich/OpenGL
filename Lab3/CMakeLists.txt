@@ -31,11 +31,3 @@ target_link_libraries(OpenGLSurfaceApp PRIVATE
         GLEW::GLEW
         glfw
 )
-
-message(STATUS "Конфигурация проекта OpenGLSurface завершена.")
-message(STATUS "  Исполняемый файл: OpenGLSurfaceApp")
-message(STATUS "  Математическая библиотека: MyMath")
-message(STATUS "  Найденные зависимости:")
-message(STATUS "    OpenGL: ${OPENGL_LIBRARIES}")
-message(STATUS "    GLEW: ${GLEW_LIBRARIES}")
-message(STATUS "    GLFW: ${GLFW_LIBRARIES}")

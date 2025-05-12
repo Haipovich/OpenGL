@@ -28,7 +28,7 @@ void main() {
     vec3 lightDir = normalize(lightPos - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuseLight = diff * lightColor;
-    vec3 diffuseMaterial = mix(texture(texture1, TexCoords).rgb, texture(texture2, TexCoords).rgb, blendFactor); // Blended texture color for diffuse
+    vec3 diffuseMaterial = mix(texture(texture1, TexCoords).rgb, texture(texture2, TexCoords).rgb, blendFactor);
     vec3 diffuse = diffuseLight * albedo;
 
 
