@@ -3,7 +3,6 @@ out vec4 FragColor;
 
 uniform vec3 pointColor;
 
-void main()
-{
+void main() {
     FragColor = vec4(pointColor, 1.0);
 } 

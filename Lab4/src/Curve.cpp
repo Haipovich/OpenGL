@@ -1,10 +1,8 @@
 #include "Curve.h"
-#include "Shader.h" // Для Shader в Draw
-#include <GL/glew.h> // Для OpenGL функций
+#include "Shader.h"
+#include <GL/glew.h>
 
-Curve::Curve() : VAO(0), VBO(0), buffersGenerated(false) {
-    // Конструктор
-}
+Curve::Curve() : VAO(0), VBO(0), buffersGenerated(false) {}
 
 Curve::~Curve() {
     if (buffersGenerated) {
@@ -13,22 +11,16 @@ Curve::~Curve() {
     }
 }
 
-// Простая реализация: соединяет контрольные точки линиями.
-// controlPoints - точки, заданные пользователем.
-// segmentsPerControlPoint - здесь не используется, но оставлен для совместимости с идеей Безье.
 void Curve::generateCurve(const std::vector<MyMath::vec3>& controlPoints, int segmentsPerControlPoint) {
     curvePoints.clear();
     if (controlPoints.size() < 2) {
-        if (buffersGenerated) updateBuffers(); // Очистить буфер, если он был
-        return; // Невозможно построить кривую из менее чем 2 точек
+        if (buffersGenerated) updateBuffers();
+        return;
     }
 
-    // Просто копируем контрольные точки для отрисовки ломаной линии
     curvePoints = controlPoints;
 
-    // Если буферы уже созданы, их нужно обновить
-    // Если нет, они будут созданы при первом вызове Draw или updateBuffers
-    // updateBuffers(); // Вызывается в main.cpp после generateCurve
+    if (buffersGenerated) updateBuffers();
 }
 
 void Curve::setupBuffers() {
@@ -42,7 +34,6 @@ void Curve::setupBuffers() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, curvePoints.size() * sizeof(MyMath::vec3), curvePoints.data(), GL_DYNAMIC_DRAW);
 
-    // Атрибут позиции
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MyMath::vec3), (void*)0);
     glEnableVertexAttribArray(0);
 
@@ -65,15 +56,14 @@ void Curve::updateBuffers() {
     if (!curvePoints.empty()) {
         glBufferData(GL_ARRAY_BUFFER, curvePoints.size() * sizeof(MyMath::vec3), curvePoints.data(), GL_DYNAMIC_DRAW);
     } else {
-        glBufferData(GL_ARRAY_BUFFER, 0, nullptr, GL_DYNAMIC_DRAW); // Очищаем буфер
+        glBufferData(GL_ARRAY_BUFFER, 0, nullptr, GL_DYNAMIC_DRAW);
     }
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Curve::Draw(Shader& shader) {
     if (curvePoints.empty() || !buffersGenerated) return;
-
-    // shader.Use(); // Предполагается, что шейдер уже активирован в main.cpp
+    shader.Use();
     glBindVertexArray(VAO);
     glDrawArrays(GL_LINE_STRIP, 0, static_cast<GLsizei>(curvePoints.size()));
     glBindVertexArray(0);

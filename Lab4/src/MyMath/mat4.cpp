@@ -9,10 +9,10 @@
 namespace MyMath {
     mat4::mat4(float diagonal) {
         memset(data, 0, 16 * sizeof(float));
-        data[0] = diagonal;  // m00
-        data[5] = diagonal;  // m11
-        data[10] = diagonal; // m22
-        data[15] = diagonal; // m33
+        data[0] = diagonal;
+        data[5] = diagonal;
+        data[10] = diagonal;
+        data[15] = diagonal;
     }
 
     const float* mat4::value_ptr() const {
@@ -21,13 +21,13 @@ namespace MyMath {
 
     mat4 mat4::operator*(const mat4& other) const {
         mat4 result(0.0f);
-        for (int i = 0; i < 4; ++i) { // row of first matrix
-            for (int j = 0; j < 4; ++j) { // col of second matrix
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
                 float sum = 0.0f;
                 for (int k = 0; k < 4; ++k) {
-                    sum += data[i + k * 4] * other.data[k + j * 4]; // Corrected indexing for column-major
+                    sum += data[i + k * 4] * other.data[k + j * 4];
                 }
-                result.data[i + j * 4] = sum; // Corrected indexing for column-major
+                result.data[i + j * 4] = sum;
             }
         }
         return result;
@@ -85,7 +85,6 @@ namespace MyMath {
         return result;
     }
 
-// Матрица вида (View Matrix)
     mat4 mat4::lookAt(const vec3& eye, const vec3& center, const vec3& up) {
         vec3 f = normalize(center - eye);
         vec3 s = normalize(cross(f, up));
@@ -164,4 +163,4 @@ namespace MyMath {
         return m * mat4::scale(v);
     }
 
-} // namespace MyMath
+}

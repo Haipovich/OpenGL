@@ -88,5 +88,4 @@ namespace MyMath {
         os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
         return os;
     }
-
-} // namespace MyMath
+}

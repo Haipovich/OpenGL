@@ -5,42 +5,35 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <memory> // Для std::unique_ptr
+#include <memory>
 
 #include "Shader.h"
 #include "Camera.h"
 #include "PointSet.h"
 #include "Curve.h"
 #include "RevolutionSurface.h"
-#include <MyMath/MyMath.h> // Для mat4, vec3 и т.д. (включает vec3.h, mat4.h)
+#include <MyMath/MyMath.h>
 
-// Прототипы функций обратного вызова
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-// Вспомогательная функция для обработки ввода с клавиатуры (удержание клавиш)
 void processInput(GLFWwindow *window);
-// Прототип для screenToWorldCoordinates, чтобы он был виден до его использования
 MyMath::vec3 screenToWorldCoordinates(double xpos, double ypos, int screenWidth, int screenHeight);
 
-// Настройки окна
 unsigned int SCR_WIDTH = 1280;
 unsigned int SCR_HEIGHT = 720;
 
-// Камера
-Camera camera(MyMath::vec3(0.0f, 0.5f, 3.0f)); // Начальная позиция камеры
+Camera camera(MyMath::vec3(0.0f, 0.5f, 3.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 
-// Время
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-// Режимы работы
 enum class AppMode {
     INPUT_POINTS,
     VIEW_SURFACE
@@ -48,22 +41,19 @@ enum class AppMode {
 AppMode currentMode = AppMode::INPUT_POINTS;
 bool modeChanged = false;
 
-// Объекты сцены (используем unique_ptr для управления ресурсами)
 std::unique_ptr<PointSet> pointSet;
 std::unique_ptr<Curve> curve;
 std::unique_ptr<RevolutionSurface> revolutionSurface;
 
-// Шейдеры
 std::unique_ptr<Shader> pointShader;
 std::unique_ptr<Shader> curveShader;
 std::unique_ptr<Shader> surfaceShader;
 
-// Параметры для тела вращения
-const int SURFACE_SEGMENTS = 32; // Количество сегментов при вращении
-const char ROTATION_AXIS = 'Y';  // ИЗМЕНЕНО НА Y
+const int SURFACE_SEGMENTS = 32;
+const char ROTATION_AXIS = 'Y';
 float surfaceRotationAngleX = 0.0f;
 float surfaceRotationAngleY = 0.0f;
-const float ROTATION_SPEED = 50.0f; // Скорость вращения в градусах в секунду
+const float ROTATION_SPEED = 50.0f;
 
 std::string loadShaderFromFile(const std::string& filePath) {
     std::ifstream shaderFile;
@@ -92,7 +82,6 @@ void processInput(GLFWwindow* window) {
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
             camera.ProcessKeyboard(RIGHT, deltaTime);
 
-        // Управление вращением объекта
         if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
             surfaceRotationAngleY -= ROTATION_SPEED * deltaTime;
         if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
@@ -122,7 +111,7 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn) {
         }
 
         float xoffset = xpos - lastX;
-        float yoffset = lastY - ypos; // Reversed since y-coordinates go from bottom to top
+        float yoffset = lastY - ypos;
 
         lastX = xpos;
         lastY = ypos;
@@ -143,35 +132,22 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         glfwGetCursorPos(window, &xpos, &ypos);
         MyMath::vec3 worldPos = screenToWorldCoordinates(xpos, ypos, SCR_WIDTH, SCR_HEIGHT);
         
-        pointSet->addPoint(worldPos.x, worldPos.y); // z=0 предполагается в screenToWorld или addPoint
-        pointSet->updateBuffers(); // Обновляем буферы точек
+        pointSet->addPoint(worldPos.x, worldPos.y);
+        pointSet->updateBuffers();
 
         if (pointSet->getNumPoints() >= 2) {
-            // Генерируем кривую (например, ломаную или Безье)
-            // Для Безье нужно будет больше логики в Curve::generateCurve
-            // Пока что пусть Curve::generateCurve просто соединяет точки из pointSet
-            curve->generateCurve(pointSet->getPoints(), 10); // 10 сегментов между контрольными точками (если Безье)
-                                                           // Для ломаной segmentsPerControlPoint не так важен
-            curve->updateBuffers(); // Обновляем буферы кривой
+            curve->generateCurve(pointSet->getPoints(), 10);
+            curve->updateBuffers();
         }
     }
 }
 
 MyMath::vec3 screenToWorldCoordinates(double xpos, double ypos, int screenWidth, int screenHeight) {
-    // Преобразование экранных координат (пиксели, Y сверху вниз) в NDC (от -1 до 1, Y снизу вверх)
     float ndcX = (static_cast<float>(xpos) / screenWidth) * 2.0f - 1.0f;
     float ndcY = 1.0f - (static_cast<float>(ypos) / screenHeight) * 2.0f;
 
-    // Для режима ввода точек, мы хотим, чтобы эти NDC координаты отображались
-    // в какой-то фиксированной плоскости XY.
-    // Предположим, что наша "сцена" для рисования кривой имеет размеры,
-    // соотносимые с NDC, например, X от -aspectRatio до +aspectRatio, Y от -1 до 1.
     float aspectRatio = static_cast<float>(screenWidth) / screenHeight;
     
-    // Простейший вариант: точки кривой лежат в плоскости z=0,
-    // а их x, y координаты напрямую соответствуют NDC, масштабированным по aspectRatio.
-    // Это значит, что при ортографической проекции (-ar, ar, -1, 1, -1, 1)
-    // клик в углу даст точку в углу этой области.
     return MyMath::vec3(ndcX * aspectRatio, ndcY, 0.0f);
 }
 
@@ -179,30 +155,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_ESCAPE)
             glfwSetWindowShouldClose(window, true);
-        if (key == GLFW_KEY_P) { // Переключение режима
+        if (key == GLFW_KEY_P) {
             if (currentMode == AppMode::INPUT_POINTS) {
                 if (pointSet->getNumPoints() >= 2) {
                     currentMode = AppMode::VIEW_SURFACE;
-                    modeChanged = true; // Флаг для первоначальной генерации поверхности
-                    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Включаем захват мыши
-                    firstMouse = true; // Сброс для камеры
+                    modeChanged = true;
+                    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                    firstMouse = true;
                     std::cout << "Switched to VIEW_SURFACE mode." << std::endl;
 
-                    // Очищаем точки и кривую предыдущего режима, если они больше не нужны
-                    // pointSet->clearPoints(); // Опционально, если не хотим их видеть под поверхностью
-                    // curve->clearCurve();   // Опционально
+                    pointSet->clearPoints();
+                    curve->clearCurve();
                 } else {
                     std::cout << "Add at least 2 points to generate a surface." << std::endl;
                 }
             }
-            // Обратный переход не обязателен, но можно добавить по желанию
-            // else {
-            //    currentMode = AppMode::INPUT_POINTS;
-            //    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); // Освобождаем мышь
-            //    std::cout << "Switched to INPUT_POINTS mode." << std::endl;
-            // }
         }
-        if (key == GLFW_KEY_C && currentMode == AppMode::INPUT_POINTS) { // Очистка точек
+        if (key == GLFW_KEY_C && currentMode == AppMode::INPUT_POINTS) {
             pointSet->clearPoints();
             pointSet->updateBuffers();
             curve->clearCurve();
@@ -297,7 +266,6 @@ int main() {
                 curve->Draw(*curveShader);
             }
         } else {
-            // Матрицы проекции и вида для 3D создаются здесь
             MyMath::mat4 projection = MyMath::mat4::perspective(MyMath::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
             MyMath::mat4 view = camera.GetViewMatrix();
 
@@ -322,7 +290,6 @@ int main() {
                 surfaceShader->setMat4("view", view);
 
                 MyMath::mat4 surfaceModel = MyMath::mat4::identity();
-                // Применяем вращение сначала вокруг X, потом вокруг Y
                 surfaceModel = MyMath::rotate(surfaceModel, MyMath::radians(surfaceRotationAngleX), MyMath::vec3(1.0f, 0.0f, 0.0f));
                 surfaceModel = MyMath::rotate(surfaceModel, MyMath::radians(surfaceRotationAngleY), MyMath::vec3(0.0f, 1.0f, 0.0f));
 
