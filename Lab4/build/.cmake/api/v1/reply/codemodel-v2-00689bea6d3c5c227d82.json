@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "OpenGLSurfaceProject",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "MyMath::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MyMath-Debug-374781d538eb8a4c43ac.json",
+					"name" : "MyMath",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "OpenGLSurfaceApp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-OpenGLSurfaceApp-Debug-5c61416aa81e979c379f.json",
+					"name" : "OpenGLSurfaceApp",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+		"source" : "/home/Haipovich/dev/Projects/study/OpenGL/Lab4"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 8
+	}
+}

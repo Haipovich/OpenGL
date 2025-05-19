@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/MyMath.dir/src/MyMath/vec3.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/MyMath/vec3.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/MyMath/vec3.cpp",
+  "output": "CMakeFiles/MyMath.dir/src/MyMath/vec3.cpp.o"
+},
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/MyMath.dir/src/MyMath/mat4.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/MyMath/mat4.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/MyMath/mat4.cpp",
+  "output": "CMakeFiles/MyMath.dir/src/MyMath/mat4.cpp.o"
+},
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/OpenGLSurfaceApp.dir/src/main.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/main.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/main.cpp",
+  "output": "CMakeFiles/OpenGLSurfaceApp.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/OpenGLSurfaceApp.dir/src/Shader.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/Shader.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/Shader.cpp",
+  "output": "CMakeFiles/OpenGLSurfaceApp.dir/src/Shader.cpp.o"
+},
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/OpenGLSurfaceApp.dir/src/Camera.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/Camera.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/Camera.cpp",
+  "output": "CMakeFiles/OpenGLSurfaceApp.dir/src/Camera.cpp.o"
+},
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/OpenGLSurfaceApp.dir/src/PointSet.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/PointSet.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/PointSet.cpp",
+  "output": "CMakeFiles/OpenGLSurfaceApp.dir/src/PointSet.cpp.o"
+},
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/OpenGLSurfaceApp.dir/src/Curve.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/Curve.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/Curve.cpp",
+  "output": "CMakeFiles/OpenGLSurfaceApp.dir/src/Curve.cpp.o"
+},
+{
+  "directory": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build",
+  "command": "/usr/sbin/g++  -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/include -I/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src -g -std=c++20 -o CMakeFiles/OpenGLSurfaceApp.dir/src/RevolutionSurface.cpp.o -c /home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/RevolutionSurface.cpp",
+  "file": "/home/Haipovich/dev/Projects/study/OpenGL/Lab4/src/RevolutionSurface.cpp",
+  "output": "CMakeFiles/OpenGLSurfaceApp.dir/src/RevolutionSurface.cpp.o"
+}
+]

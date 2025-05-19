@@ -1,0 +1,4 @@
+/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build/CMakeFiles/MyMath.dir
+/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build/CMakeFiles/OpenGLSurfaceApp.dir
+/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build/CMakeFiles/edit_cache.dir
+/home/Haipovich/dev/Projects/study/OpenGL/Lab4/build/CMakeFiles/rebuild_cache.dir

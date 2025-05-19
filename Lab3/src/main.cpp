@@ -12,7 +12,7 @@ const float GRID_STEP = 0.1f;
 const float AMPLITUDE = 1.0f;
 
 const MyMath::vec3 CAMERA_POS(0.0f, 0.0f, 3.0f);
-const MyMath::vec3 LIGHT_POS(1.0f, 1.0f, 1.0f);
+const MyMath::vec3 LIGHT_POS(1.0f, -10.0f, 1.0f);
 const MyMath::vec3 LIGHT_COLOR(1.0f, 1.0f, 1.0f);
 const MyMath::vec3 OBJECT_COLOR(0.1f, 0.5f, 0.8f);
 
